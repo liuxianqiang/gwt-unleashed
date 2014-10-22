@@ -5,7 +5,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class DemoGWT2 implements EntryPoint {
 	public void onModuleLoad() {
-		RootPanel.get().add(new HelloWorld("aa"));
+		RootPanel.get().add(new HelloWorld6("your uibinder"));
 	}
 }
 

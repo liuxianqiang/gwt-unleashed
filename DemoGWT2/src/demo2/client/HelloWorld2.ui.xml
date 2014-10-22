@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' 
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:FlowPanel>
+		<g:TextBox text="hello world 2"></g:TextBox>
+		<g:Button ui:field="mybutton" text="my uibinder"></g:Button>
+	</g:FlowPanel>
+</ui:UiBinder>
+

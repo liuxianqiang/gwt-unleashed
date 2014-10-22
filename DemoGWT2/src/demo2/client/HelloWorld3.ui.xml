@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'>
+	<!-- with default field style -->
+	<ui:style>
+		.redbox {
+			border:1px solid red;
+			width: 20px;
+			height: 20px;
+		}
+	</ui:style>
+	
+	<ui:style field="one">
+		.redbox {
+			border:3px solid red;
+			width: 20px;
+			height: 20px;
+		}
+	</ui:style>
+	
+	<ui:style field="two">
+		.redbox {
+			border:5px solid red;
+			width: 20px;
+			height: 20px;
+		}
+	</ui:style>
+	
+	<ui:style src="resource/style.css" field="three"/>
+	
+	<ui:style src="resource/style.css" field="four" type="demo2.client.HelloWorld3.Style"/>
+	
+	<div>
+	</div>
+</ui:UiBinder>
+
