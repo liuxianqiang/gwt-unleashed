@@ -16,8 +16,9 @@ public class HelloGWT implements EntryPoint {
 		WelcomeImpl welcome = GWT.create(WelcomeImpl.class);
 		welcome.greeting();
 
-		MyAlert.alert();
-		ShowUUID.show();
+//		MyAlert.alert();
+		
+//		ShowUUID.show();
 
 		JavaScriptObject o;
 		Button welcomeButton = new Button("欢迎");
