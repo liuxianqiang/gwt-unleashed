@@ -1,12 +1,17 @@
 package chapter7.client;
 
+import static chapter7.client.UIHelper.log;
+
 import java.util.Date;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.OpenEvent;
+import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.logical.shared.ShowRangeEvent;
 import com.google.gwt.event.logical.shared.ShowRangeHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -19,19 +24,21 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SubmitButton;
+import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.Tree;
+import com.google.gwt.user.client.ui.TreeItem;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
-import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.user.datepicker.client.DatePicker;
-import com.google.gwt.user.datepicker.client.DefaultMonthSelector;
-import com.google.gwt.user.datepicker.client.MonthSelector;
 
-import static chapter7.client.UIHelper.*;
-
-public class SimpleWidget implements EntryPoint {
+public class GwtWidget implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
@@ -41,7 +48,10 @@ public class SimpleWidget implements EntryPoint {
 //		testCheckBox();
 //		testRadioButton();
 //		testDatePicker();
-		testFileUpload();
+//		testFileUpload();
+//		testListBox();
+//		testTree();
+		testMenuBar();
 	}
 	
 	private void testWrap() {
@@ -162,5 +172,68 @@ public class SimpleWidget implements EntryPoint {
 		}
 		
 		RootPanel.get().add(form);
+	}
+	
+	private void testListBox() {
+		ListBox listBox = new ListBox(false);
+		listBox.addItem("加盟商", "1");
+		listBox.addItem("一级渠道", "2");
+		listBox.addItem("二级渠道", "3");
+		// 无法很方便的设定和取值.
+		RootPanel.get().add(listBox);
+	}
+	
+	private void testSuggestBox() {
+		MultiWordSuggestOracle suggestOracle = new MultiWordSuggestOracle(); 
+		suggestOracle.add("google");
+		suggestOracle.add("gooogle");
+		suggestOracle.add("goooogle");
+		// GWT RPC 实现的SuggestOracle可以参考MultiWordSuggestOracle
+		SuggestBox suggestBox = new SuggestBox(suggestOracle);
+		RootPanel.get().add(suggestBox);
+	}
+	
+	private void testTree() {
+		Tree tree = new Tree();
+		tree.setSize("100px", "200px");
+		TreeItem parent = tree.addItem(new CheckBox("parent"));
+		parent.addItem(new CheckBox("child1"));
+		parent.addItem(new CheckBox("child2"));
+		parent.addItem(new CheckBox("child3")).addItem(new CheckBox("child31"));
+		
+		tree.addOpenHandler(new OpenHandler<TreeItem>() {
+			@Override
+			public void onOpen(OpenEvent<TreeItem> event) {
+				TreeItem target = event.getTarget();
+				Window.alert(target.getText());
+			}
+		});
+		RootPanel.get().add(tree);
+		
+	}
+	
+	private void testMenuBar() {
+		MenuBar topMenuBar = new MenuBar();
+		
+		MenuBar fileMenuBar = new MenuBar(true);
+		topMenuBar.addItem("File", fileMenuBar);
+		
+		fileMenuBar.addItem("Open", new Scheduler.ScheduledCommand() {
+			@Override
+			public void execute() {
+				Window.alert("open file");	
+			}
+		});
+		
+		fileMenuBar.addSeparator();
+		
+		fileMenuBar.addItem("Close", new Scheduler.ScheduledCommand() {
+			@Override
+			public void execute() {
+				Window.alert("close file");	
+			}
+		});
+		
+		RootPanel.get().add(topMenuBar);
 	}
 }

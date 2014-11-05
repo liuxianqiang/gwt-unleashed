@@ -20,15 +20,15 @@
 	<!-- Other module inherits                                      -->
 
 	<!-- Specify the app entry point class.                         -->
-	<entry-point class="chapter7.client.SimpleWidget" />
+	<entry-point class="chapter7.client.GwtPanel" />
 
 	<!-- Specify the paths for translatable code                    -->
 	<source path='client' />
 	<source path='shared' />
-	
+
 	<!-- 国际化 ?locale=zh -->
-	<extend-property  name="locale" values="zh"/>
-	
+	<extend-property name="locale" values="zh" />
+
 	<!-- allow Super Dev Mode -->
 	<add-linker name="xsiframe" />
 </module>
